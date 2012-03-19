@@ -1,0 +1,7 @@
+vtcolors
+
+tags
+Makefile.bak
+*.o
+*~
+.*.swp
