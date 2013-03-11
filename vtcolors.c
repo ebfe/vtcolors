@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -8,6 +9,8 @@
 #include <fcntl.h>
 
 #include <linux/kd.h>
+
+#define CSI "\x1b]"
 
 static unsigned char default_cmap[] = {
 	0x00, 0x00, 0x00,
@@ -28,7 +31,7 @@ static unsigned char default_cmap[] = {
 	0xff, 0xff, 0xff
 };
 
-static unsigned char better_cmap[] = {
+static unsigned char slate_cmap[] = {
 	0x18, 0x1b, 0x1f,
 	0xcd, 0x00, 0x00,
 	0x00, 0xcd, 0x00,
@@ -55,6 +58,17 @@ int set_cmap(int fd, unsigned char *cmap) {
 	return ioctl(fd, PIO_CMAP, cmap);
 }
 
+void set_underlined_color(int c) {
+	printf("\x1b[1;%d]", c);
+}
+
+void set_italic_color(int c) {
+	printf("\x1b[2;%d]", c);
+}
+
+
+static const unsigned char smap[48] = {0};
+
 int main(int argc, char *argv[]) {
 
 	const char *tty = "/dev/tty";
@@ -74,8 +88,8 @@ int main(int argc, char *argv[]) {
 		if (set_cmap(fd, default_cmap) == -1) {
 			perror("set_cmap");
 		}
-	} else if (strcmp(cmd, "better") == 0) {
-		if (set_cmap(fd, better_cmap) == -1) {
+	} else if (strcmp(cmd, "slate") == 0) {
+		if (set_cmap(fd, slate_cmap) == -1) {
 			perror("set_cmap");
 		}
 	} else if (strcmp(cmd, "dump") == 0) {
@@ -87,6 +101,14 @@ int main(int argc, char *argv[]) {
 		} else {
 			perror("get_cmap");
 		}
+	} else if (strcmp(cmd, "underlined")) {
+		int c = atoi(argv[2]);
+		set_underlined_color(c);
+	} else if (strcmp(cmd, "italic")) {
+		int c = atoi(argv[2]);
+		set_italic_color(c);
+	} else {
+		fprintf(stderr, "unknown cmd %s\n", cmd);
 	}
 
 	return 0;

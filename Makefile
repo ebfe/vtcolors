@@ -8,7 +8,7 @@ CFLAGS += -Wall
 
 LDFLAGS = 
 
-all: vtcolors 
+all: vtcolors vttest
 
 vtcolors: vtcolors.o
 	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $^
@@ -17,7 +17,7 @@ tags:
 	ctags -R .
 
 clean:
-	@-rm vtcolors *.o *~ core tags
+	@-rm vtcolors vttest *.o *~ core tags
 
 
 .PHONY: all tags clean
