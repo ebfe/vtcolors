@@ -10,8 +10,6 @@
 
 #include <linux/kd.h>
 
-#define CSI "\x1b]"
-
 static unsigned char default_cmap[] = {
 	0x00, 0x00, 0x00,
 	0xaa, 0x00, 0x00,
@@ -65,9 +63,6 @@ void set_underlined_color(int c) {
 void set_italic_color(int c) {
 	printf("\x1b[2;%d]", c);
 }
-
-
-static const unsigned char smap[48] = {0};
 
 int main(int argc, char *argv[]) {
 
