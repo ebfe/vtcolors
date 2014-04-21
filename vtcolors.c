@@ -97,13 +97,24 @@ int main(int argc, char *argv[]) {
 			perror("get_cmap");
 		}
 	} else if (strcmp(cmd, "underlined") == 0 ) {
-		int c = atoi(argv[2]);
-		set_underlined_color(c);
+		if (argc > 2) {
+			int c = atoi(argv[2]);
+			set_underlined_color(c);
+		} else {
+			fprintf(stderr, "missing color index\n");
+			return 1;
+		}
 	} else if (strcmp(cmd, "italic") == 0) {
-		int c = atoi(argv[2]);
-		set_italic_color(c);
+		if (argc > 2) {
+			int c = atoi(argv[2]);
+			set_italic_color(c);
+		} else {
+			fprintf(stderr, "missing color index\n");
+			return 1;
+		}
 	} else {
 		fprintf(stderr, "unknown cmd %s\n", cmd);
+		return 1;
 	}
 
 	return 0;
