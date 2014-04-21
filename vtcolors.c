@@ -96,10 +96,10 @@ int main(int argc, char *argv[]) {
 		} else {
 			perror("get_cmap");
 		}
-	} else if (strcmp(cmd, "underlined")) {
+	} else if (strcmp(cmd, "underlined") == 0 ) {
 		int c = atoi(argv[2]);
 		set_underlined_color(c);
-	} else if (strcmp(cmd, "italic")) {
+	} else if (strcmp(cmd, "italic") == 0) {
 		int c = atoi(argv[2]);
 		set_italic_color(c);
 	} else {
