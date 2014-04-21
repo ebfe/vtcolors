@@ -96,7 +96,7 @@ int main(int argc, char *argv[]) {
 		} else {
 			perror("get_cmap");
 		}
-	} else if (strcmp(cmd, "underlined") == 0 || strcmp(cmd, "italic") == 0) {
+	} else if (strcmp(cmd, "underlined") == 0) {
 		int c;
 		if (argc < 3) {
 			fprintf(stderr, "missing color index\n");
@@ -107,12 +107,7 @@ int main(int argc, char *argv[]) {
 			fprintf(stderr, "color index out of range\n");
 			return 1;
 		}
-
-		if (cmd[0] == 'u') {
-			set_underlined_color(c);
-		} else {
-			set_italic_color(c);
-		}
+		set_underlined_color(c);
 	} else {
 		fprintf(stderr, "unknown cmd %s\n", cmd);
 		return 1;
